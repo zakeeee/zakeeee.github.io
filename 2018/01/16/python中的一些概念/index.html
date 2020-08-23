@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+  </script>
+
+  <meta name="description" content="Python中的一些概念 这里只简单概述一些python中的概念，更多内容请自行通过书籍资料学习。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python中的一些概念">
+<meta property="og:url" content="http://yoursite.com/2018/01/16/python%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="Zakeeee">
+<meta property="og:description" content="Python中的一些概念 这里只简单概述一些python中的概念，更多内容请自行通过书籍资料学习。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-01-16T12:54:06.000Z">
+<meta property="article:modified_time" content="2020-08-23T10:40:44.279Z">
+<meta property="article:author" content="Jin">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/01/16/python%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python中的一些概念 | Zakeeee</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Zakeeee</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text"> Python中的一些概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AD%E5%8C%85"><span class="nav-number">1.1.</span> <span class="nav-text"> 闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text"> 装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text"> 迭代器与生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text"> 协程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text"> 上下文管理</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jin"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zakeeee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zakeeee" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/16/python%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zakeeee">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python中的一些概念
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-16 20:54:06" itemprop="dateCreated datePublished" datetime="2018-01-16T20:54:06+08:00">2018-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-23 18:40:44" itemprop="dateModified" datetime="2020-08-23T18:40:44+08:00">2020-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="python中的一些概念"><a class="markdownIt-Anchor" href="#python中的一些概念"></a> Python中的一些概念</h1>
+<p><strong>这里只简单概述一些python中的概念，更多内容请自行通过书籍资料学习。</strong></p>
+<a id="more"></a>
+<h2 id="闭包"><a class="markdownIt-Anchor" href="#闭包"></a> 闭包</h2>
+<blockquote>
+<p><strong>Wiki</strong> 在计算机科学中，闭包，又称词法闭包或函数闭包，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。 所以，有另一种说法认为闭包是由函数和与其相关的引用环境组合而成的实体。</p>
+</blockquote>
+<p>在如下例子中，<code>func</code>构成一个闭包，其中的自由变量<code>n</code>和<code>dictionary</code>与<code>func</code>一同存在。<code>func</code>函数返回了<code>add_value</code>这个函数，<code>add_value</code>这个函数又使用了父函数<code>func</code>中的变量。原本函数中的局部变量仅仅在函数的执行期间是可用的，我们会认为<code>n</code>和<code>dictionary</code>在执行完<code>f1=func('1')</code>这段代码之后应该就不可用了，但是事实上它们会同<code>func</code>一同存在，这种现象就是闭包。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">name</span>):</span>  <span class="comment"># func构成一个闭包</span></span><br><span class="line">    n = name  <span class="comment"># n是自由变量</span></span><br><span class="line">    dictionary = &#123;&#125;  <span class="comment"># dictionary是自由变量</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_value</span>(<span class="params">k, v</span>):</span></span><br><span class="line">        dictionary[k] = v</span><br><span class="line">        print(<span class="string">&#x27;&#123;&#125;: &#123;&#125;&#x27;</span>.format(n, dictionary))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> add_value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f1 = func(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">f2 = func(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">f1(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;Alice&#x27;</span>)</span><br><span class="line">f1(<span class="string">&#x27;age&#x27;</span>, <span class="number">18</span>)</span><br><span class="line">f2(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;Bob&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 1: &#123;&#x27;name&#x27;: &#x27;Alice&#x27;&#125;</span></span><br><span class="line"><span class="comment"># 1: &#123;&#x27;name&#x27;: &#x27;Alice&#x27;, &#x27;age&#x27;: 18&#125;</span></span><br><span class="line"><span class="comment"># 2: &#123;&#x27;name&#x27;: &#x27;Bob&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="装饰器"><a class="markdownIt-Anchor" href="#装饰器"></a> 装饰器</h2>
+<p>装饰器与闭包十分相似，装饰器能够在不改变原有函数的情况下给函数添加新的功能。它的实质其实是接受了函数作为参数，经过添加一些功能（装饰），然后返回了一个被装饰后的函数。<br />
+装饰器的用途很多，不光能动态增加函数的功能，还能用来存储信息，这点与闭包是相似的，可以在装饰器中存储自由变量。<br />
+下面的例子中，装饰器<code>elapsed</code>给<code>fib</code>添加了计算耗时的功能，这个时候的<code>fib</code>已经不是原本的<code>fib</code>了，而是被<code>elapsed</code>返回的<code>wrapper</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">elapsed</span>(<span class="params">f</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">        start = time.clock()</span><br><span class="line">        ans = f(*args, **kwargs)</span><br><span class="line">        print(<span class="string">&#x27;使用了&#123;:f&#125;秒&#x27;</span>.format(time.clock() - start))</span><br><span class="line">        <span class="keyword">return</span> ans</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@elapsed</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib</span>(<span class="params">n</span>):</span></span><br><span class="line">    prev, curr = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n<span class="number">-1</span>):</span><br><span class="line">        prev, curr = curr, prev + curr</span><br><span class="line">    <span class="keyword">return</span> prev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(fib(<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 使用了0.000011秒</span></span><br><span class="line"><span class="comment"># 218922995834555169026</span></span><br></pre></td></tr></table></figure>
+<p>下面的例子中介绍了装饰器如何存储信息。我们使用<code>register</code>装饰器来存储注册的函数。这个功能在一些python的web框架中有使用，被用来注册views，这样控制器在接到request时就知道去哪里找对应的响应函数。<strong>注：装饰器会在模块加载的时候执行</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span>(<span class="params">f</span>):</span></span><br><span class="line">    dictionary = &#123;&#125;</span><br><span class="line">    dictionary[f.__name__] = f</span><br><span class="line">    print(<span class="string">&#x27;已经注册的函数：&#123;&#125;&#x27;</span>.format(dictionary))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">        f(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@register</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func1</span>():</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@register</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span>():</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@register</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func3</span>():</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 已经注册的函数：&#123;&#x27;func1&#x27;: &lt;function func1 at 0x000002A81F633840&gt;&#125;</span></span><br><span class="line"><span class="comment"># 已经注册的函数：&#123;&#x27;func2&#x27;: &lt;function func2 at 0x000002A81F633950&gt;&#125;</span></span><br><span class="line"><span class="comment"># 已经注册的函数：&#123;&#x27;func3&#x27;: &lt;function func3 at 0x000002A81F633A60&gt;&#125;</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="迭代器与生成器"><a class="markdownIt-Anchor" href="#迭代器与生成器"></a> 迭代器与生成器</h2>
+<blockquote>
+<p><strong>Wiki</strong> 迭代器（iterator）是一种对象，它能够用来遍历标准模板库容器中的部分或全部元素，每个迭代器对象代表容器中的确定的地址。迭代器修改了常规指针的接口，所谓迭代器是一种概念上的抽象：那些行为上像迭代器的东西都可以叫做迭代器。然而迭代器有很多不同的能力，它可以把抽象容器和通用算法有机的统一起来。</p>
+</blockquote>
+<p>迭代器的概念来源于设计模式。在python中，迭代器实现了<code>__iter__</code>和<code>__next__</code>方法。<strong>注：Iterable和Iterator的区别：Iterable实现了<code>__iter__</code>方法/接口（返回一个Iterator），而Iterator实现了<code>__iter__</code>（Iterator本身也是Iterable）和<code>__next__</code>方法/接口。</strong><br />
+由于迭代器实现了<code>__next__</code>方法，就可以通过<code>next(iterator)</code>来获取下一个元素，直到没有下一个元素时，抛出<code>StopIteration</code>异常。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">s = range(<span class="number">10</span>)</span><br><span class="line">s = iter(s)  <span class="comment"># 返回迭代器</span></span><br><span class="line">print(next(s))  <span class="comment"># 打印出下一个元素</span></span><br><span class="line">print(next(s))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
+<p>迭代器在python中使用很多，比如我们对<code>range list tuple dict set</code>使用<code>for .. in ..</code>的时候，会自动调用<code>iter</code>函数返回一个迭代器，并且这个语句会自动处理<code>StopIteration</code>异常。python标准库<code>itertools</code>中有很多有用的与迭代器有关的工具。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">s = range(<span class="number">3</span>)</span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> s:</span><br><span class="line">    print(e)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
+<p>生成器（generator）是一种特殊的迭代器。像我们之前使用的<code>range</code>就是一个生成器。python中使用<code>yield</code>关键词而不是<code>return</code>来定义一个生成器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator</span>():</span></span><br><span class="line">    n = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">        n += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gen = generator()</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    print(next(gen))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
+<p>从上述例子中，我们可以看出生成器是惰性求值的实现，如果我们希望遍历一个很大的列表，但是又不希望存储这么多的元素，我们就可以使用生成器。比如上述例子是用来产生一个无穷的计数器，显然我们不可能存储无穷多个数字，我们可以使用生成器，这样每次只产生一个数字，当然这样的话就只能按顺序获取元素，而不能随机访问。</p>
+<p>除了使用<code>yield</code>关键词外，另一种定义生成器的方法类似于列表推导，但是将<code>[]</code>替换为<code>()</code>了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">gen = (i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">print(next(gen))</span><br><span class="line">print(next(gen))</span><br><span class="line">print(next(gen))</span><br><span class="line">print(next(gen)) <span class="comment"># 会抛出StopIteration异常，因为没有元素了</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># Traceback (most recent call last):</span></span><br><span class="line"><span class="comment">#  File &quot;c:/Users/Zaki/Desktop/test3.py&quot;, line 6, in &lt;module&gt;</span></span><br><span class="line"><span class="comment">#    print(next(gen))</span></span><br><span class="line"><span class="comment"># StopIteration</span></span><br></pre></td></tr></table></figure>
+<p>还可以通过<code>yield from</code>关键词来从别的生成器产生新的生成器。比如下面的例子中合并了两个生成器为一个生成器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib</span>(<span class="params">n</span>):</span></span><br><span class="line">    prev, curr = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> range(n):</span><br><span class="line">        <span class="keyword">yield</span> curr</span><br><span class="line">        prev, curr = curr, prev + curr</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">new_generator</span>():</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> range(<span class="number">3</span>)</span><br><span class="line">    print(<span class="string">&#x27;fib&#x27;</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> fib(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gen = new_generator()</span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> gen:</span><br><span class="line">    print(e)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># fib</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="协程"><a class="markdownIt-Anchor" href="#协程"></a> 协程</h2>
+<p>协程（Coroutine）是一种程序组件，类似于子程序。可以用来处理并发。python中同样是使用<code>yield</code>关键词来产生协程，<strong>但是这两个是不同的东西！</strong>，并且协程的<code>yield</code>在<code>=</code>的右边。协程在执行到<code>yield</code>时会暂停，直到通过<code>send</code>发送一个数据给协程来继续。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">coroutine</span>():</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        print(<span class="string">&#x27;准备接收x&#x27;</span>)</span><br><span class="line">        x = <span class="keyword">yield</span></span><br><span class="line">        print(<span class="string">&#x27;接收到 x=&#123;&#125;&#x27;</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">co = coroutine()</span><br><span class="line">next(co)  <span class="comment"># 需要使用next()或者co.send(None)来激活协程</span></span><br><span class="line">co.send(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 准备接收x</span></span><br><span class="line"><span class="comment"># 接收到 x=1</span></span><br><span class="line"><span class="comment"># 准备接收x</span></span><br></pre></td></tr></table></figure>
+<p>还可以通过<code>yield from</code>关键词来从一个子协程中产生协程，并且此时会自动激活子协程。这种方式可以想象成这个协程建立了调用方和子协程之间的通道。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub_coroutine</span>():</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        print(<span class="string">&#x27;子协程等待 x&#x27;</span>)</span><br><span class="line">        x = <span class="keyword">yield</span></span><br><span class="line">        print(<span class="string">&#x27;接收到 x=&#123;&#125;&#x27;</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">coroutine</span>():</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        print(<span class="string">&#x27;协程准备&#x27;</span>)</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">from</span> sub_coroutine()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">co = coroutine()</span><br><span class="line">next(co)  <span class="comment"># 这个协程还是需要激活的</span></span><br><span class="line">co.send(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">co.send(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 协程准备</span></span><br><span class="line"><span class="comment"># 子协程等待 x</span></span><br><span class="line"><span class="comment"># 接收到 x=1</span></span><br><span class="line"><span class="comment"># 子协程等待 x</span></span><br><span class="line"><span class="comment"># 接收到 x=2</span></span><br><span class="line"><span class="comment"># 子协程等待 x</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="上下文管理"><a class="markdownIt-Anchor" href="#上下文管理"></a> 上下文管理</h2>
+<p>在python中，上下文管理非常常见，比如<code>with</code>语句。当我们使用<code>with</code>语句时，就构建了一个上下文环境，在这个环境中，我们可以做一些事情，比如操作IO，当我们退出了这个环境时，上下文管理器可以帮我们自动进行一些事后处理，比如关闭IO。<br />
+下面的例子中，我们使用<code>@contextlib.contextmanager</code>装饰器来装饰<code>my_open</code>函数，让这个函数成为了上下文管理器，它会帮我们在操作文件完成后自动关闭文件，效果和<code>with open() as f</code>相似，不过没有很好处理异常。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> contextlib</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@contextlib.contextmanager</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_open</span>(<span class="params">*args</span>):</span></span><br><span class="line">    f_handler = open(*args)</span><br><span class="line">    msg = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">yield</span> f_handler</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">        msg = err.msg()</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        f_handler.close()</span><br><span class="line">        <span class="keyword">if</span> msg:</span><br><span class="line">            print(msg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> my_open(<span class="string">&#x27;D:\\1.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(<span class="string">&#x27;123&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 会创建文件&#x27;D:\\1.txt&#x27;并写入&#x27;123&#x27;</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/01/13/python%E7%9A%84itertools%E5%B7%A5%E5%85%B7%E5%8C%85%E4%B8%AD%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8/" rel="prev" title="python的itertools工具包中的生成器">
+      <i class="fa fa-chevron-left"></i> python的itertools工具包中的生成器
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2018/01/16/python%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2018/01/16/python%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

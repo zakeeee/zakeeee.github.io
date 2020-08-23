@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>git使用</title>
+    <url>/2017/12/06/git%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="git使用"><a class="markdownIt-Anchor" href="#git使用"></a> Git使用</h1>
+<a id="more"></a>
+<h2 id="一-git-命令初识"><a class="markdownIt-Anchor" href="#一-git-命令初识"></a> 一、 Git 命令初识</h2>
+<p>在正式介绍Git命令之前，先介绍一下Git 的基本命令和操作，对Git命令有一个总体的认识</p>
+<h3 id="从git版本库的初始化通常有两种方式"><a class="markdownIt-Anchor" href="#从git版本库的初始化通常有两种方式"></a> 从Git版本库的初始化，通常有两种方式：</h3>
+<h4 id="git-clone"><a class="markdownIt-Anchor" href="#git-clone"></a> git clone</h4>
+<p>这是一种较为简单的初始化方式，当你已经有一个远程的Git版本库，只需要在本地克隆一份。</p>
+<p>例如：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://github.com/someone/some_project.git some_project</span><br></pre></td></tr></table></figure>
+<p>上面的命令就是将<code>git://github.com/someone/some_project.git</code>这个URL地址的远程版本库，完全克隆到本地<code>some_project</code>目录下</p>
+<h4 id="git-init-和-git-remote"><a class="markdownIt-Anchor" href="#git-init-和-git-remote"></a> git init 和 git remote</h4>
+<p>这种方式稍微复杂一些，当你本地创建了一个工作目录，你可以进入这个目录，使用<code>git init</code>命令进行初始化。Git以后就会对该目录下的文件进行版本控制，这时候如果你需要将它放到远程服务器上，可以在远程服务器上创建一个目录，并把可访问的URL记录下来，此时你就可以利用<code>git remote add</code>命令来增加一个远程服务器端。</p>
+<p>例如：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git remote add origin git://github.com/someone/another_project.git</span><br></pre></td></tr></table></figure>
+<p>上面的命令就会增加URL地址为<code>git://github.com/someone/another_project.git</code>，名称为<code>origin</code>的远程服务器，以后提交代码的时候只需要使用<code>origin</code>别名即可</p>
+<h2 id="二-git-常用命令"><a class="markdownIt-Anchor" href="#二-git-常用命令"></a> 二、 Git 常用命令</h2>
+<h3 id="远程仓库相关命令"><a class="markdownIt-Anchor" href="#远程仓库相关命令"></a> 远程仓库相关命令</h3>
+<ul>
+<li>检出仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://github.com/jquery/jquery.git</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看远程仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加远程仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git remote add [name] [url]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除远程仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git remote rm [name]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改远程仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url --push [name] [newUrl]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>拉取远程仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git pull [remoteName] [localBranchName]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>推送远程仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push [remoteName] [localBranchName]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果想把本地的某个分支test提交到远程仓库，并作为远程仓库的master分支，或者作为另外一个名叫test的分支，如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push origin <span class="built_in">test</span>:master         <span class="comment"># 提交本地test分支作为远程的master分支</span></span><br><span class="line">git push origin <span class="built_in">test</span>:<span class="built_in">test</span>           <span class="comment"># 提交本地test分支作为远程的test分支 </span></span><br></pre></td></tr></table></figure>
+<h3 id="分支branch操作相关命令"><a class="markdownIt-Anchor" href="#分支branch操作相关命令"></a> 分支(branch)操作相关命令</h3>
+<ul>
+<li>查看本地分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看远程分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git branch -r</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建本地分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git branch [name]    <span class="comment"># 注意新分支创建后不会自动切换为当前分支</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>切换分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git checkout [name]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建新分支并立即切换到新分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git checkout -b [name]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git branch -d [name]    <span class="comment"># -d选项只能删除已经参与了合并的分支，对于未有合并的分支是无法删除的。</span></span><br><span class="line">                          <span class="comment"># 如果想强制删除一个分支，可以使用-D选项</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>合并分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git merge [name]    <span class="comment"># 将名称为[name]的分支与当前分支合并</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建远程分支(本地分支push到远程)</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push origin [name]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除远程分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push origin:heads/[name]</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">git push origin :[name]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建空的分支(执行命令之前记得先提交你当前分支的修改，否则会被强制删干净没得后悔)</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git symbolic-ref HEAD refs/heads/[name]</span><br><span class="line">rm .git/index</span><br><span class="line">git clean -fdx</span><br></pre></td></tr></table></figure>
+<h3 id="版本tag操作相关命令"><a class="markdownIt-Anchor" href="#版本tag操作相关命令"></a> 版本(tag)操作相关命令</h3>
+<ul>
+<li>查看版本</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建版本</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git tag [name]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除版本</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git tag -d [name]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看远程版本</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git tag -r</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建远程版本(本地版本push到远程)</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push origin [name]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除远程版本</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push origin:refs/tags/[name]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>合并远程仓库的tag到本地</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git pull origin --tags</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上传本地tag到远程仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push origin --tags</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建带注释的tag</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git tag -a [name] -m <span class="string">&#x27;your message&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="子模块submodule相关操作命令"><a class="markdownIt-Anchor" href="#子模块submodule相关操作命令"></a> 子模块(submodule)相关操作命令</h3>
+<ul>
+<li>添加子模块</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git submodule add [url] [path]</span><br></pre></td></tr></table></figure>
+<p>例如’$git submodule add git://github.com/soberh/ui-libs.git src/main/webapp/ui-libs’</p>
+<ul>
+<li>初始化子模块</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git submodule init    <span class="comment"># 只在首次检出仓库时运行一次就行</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>更新子模块</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git submodule update    <span class="comment"># 每次更新或切换分支后都需要运行一下</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除子模块：（分4步走哦）</li>
+</ul>
+<ol>
+<li><code>git rm --cached [path]</code></li>
+<li>编辑“.gitmodules”文件，将子模块的相关配置节点删除掉</li>
+<li>编辑“ .git/config”文件，将子模块的相关配置节点删除掉</li>
+<li>手动删除子模块残留的目录</li>
+</ol>
+<h3 id="忽略一些文件-文件夹不提交"><a class="markdownIt-Anchor" href="#忽略一些文件-文件夹不提交"></a> 忽略一些文件、文件夹不提交</h3>
+<p>在仓库根目录下创建名称为“.gitignore”的文件，写入不需要的文件夹名或文件，每个元素占一行即可，如</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">target</span><br><span class="line">bin</span><br><span class="line">*.db</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>markdown语法</title>
+    <url>/2017/12/06/markdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="markdown基本语法"><a class="markdownIt-Anchor" href="#markdown基本语法"></a> Markdown基本语法</h1>
+<a id="more"></a>
+<h2 id="标题"><a class="markdownIt-Anchor" href="#标题"></a> 标题</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"><span class="section">### 三级标题</span></span><br><span class="line"><span class="section">#### 四级标题</span></span><br><span class="line"><span class="section">##### 五级标题</span></span><br><span class="line"><span class="section">###### 六级标题</span></span><br></pre></td></tr></table></figure>
+<h1 id="一级标题"><a class="markdownIt-Anchor" href="#一级标题"></a> 一级标题</h1>
+<h2 id="二级标题"><a class="markdownIt-Anchor" href="#二级标题"></a> 二级标题</h2>
+<h3 id="三级标题"><a class="markdownIt-Anchor" href="#三级标题"></a> 三级标题</h3>
+<h4 id="四级标题"><a class="markdownIt-Anchor" href="#四级标题"></a> 四级标题</h4>
+<h5 id="五级标题"><a class="markdownIt-Anchor" href="#五级标题"></a> 五级标题</h5>
+<h6 id="六级标题"><a class="markdownIt-Anchor" href="#六级标题"></a> 六级标题</h6>
+<h2 id="列表"><a class="markdownIt-Anchor" href="#列表"></a> 列表</h2>
+<h3 id="无序列表"><a class="markdownIt-Anchor" href="#无序列表"></a> 无序列表</h3>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> item1</span><br><span class="line"><span class="bullet">-</span> item2</span><br><span class="line"><span class="bullet">-</span> item3</span><br></pre></td></tr></table></figure>
+<ul>
+<li>item1</li>
+<li>item2</li>
+<li>item3</li>
+</ul>
+<h3 id="有序列表"><a class="markdownIt-Anchor" href="#有序列表"></a> 有序列表</h3>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> item1</span><br><span class="line"><span class="bullet">2.</span> item2</span><br><span class="line"><span class="bullet">3.</span> item3</span><br></pre></td></tr></table></figure>
+<ol>
+<li>item1</li>
+<li>item2</li>
+<li>item3</li>
+</ol>
+<h2 id="复选框"><a class="markdownIt-Anchor" href="#复选框"></a> 复选框</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> [x] 任务1</span><br><span class="line"><span class="bullet">-</span> [ ] 任务2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>[x] 任务1</li>
+<li>[ ] 任务2</li>
+</ul>
+<h2 id="链接"><a class="markdownIt-Anchor" href="#链接"></a> 链接</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">[<span class="string">name</span>](<span class="link">url</span>)</span><br></pre></td></tr></table></figure>
+<p>例如<code>[百度](http://www.baidu.com)</code>显示如下</p>
+<p><a href="http://www.baidu.com">百度</a></p>
+<h2 id="图片"><a class="markdownIt-Anchor" href="#图片"></a> 图片</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">![<span class="string">name</span>](<span class="link">图片url</span>)</span><br></pre></td></tr></table></figure>
+<p>例如<code>![name](http://upload-images.jianshu.io/upload_images/259-0ad0d0bfc1c608b6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</code>显示如下</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/259-0ad0d0bfc1c608b6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="name" /></p>
+<h2 id="引用"><a class="markdownIt-Anchor" href="#引用"></a> 引用</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="quote">&gt; 引用的文字</span></span><br><span class="line">&gt;&gt; 嵌套引用</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>引用的文字</p>
+<blockquote>
+<p>嵌套引用</p>
+</blockquote>
+</blockquote>
+<h2 id="粗体和斜体"><a class="markdownIt-Anchor" href="#粗体和斜体"></a> 粗体和斜体</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="strong">**粗体**</span></span><br><span class="line"><span class="emphasis">*斜体*</span></span><br><span class="line">~~删除线~~</span><br></pre></td></tr></table></figure>
+<p><strong>粗体</strong><br />
+<em>斜体</em><br />
+<s>删除线</s></p>
+<h2 id="水平线"><a class="markdownIt-Anchor" href="#水平线"></a> 水平线</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="bullet">*</span> <span class="emphasis">* *</span></span><br><span class="line"><span class="strong">**<span class="emphasis">*</span></span></span><br><span class="line"><span class="strong"><span class="emphasis"><span class="strong">****</span>*</span></span></span><br><span class="line"><span class="strong">- - -</span></span><br><span class="line"><span class="strong">---------------------------------------</span></span><br></pre></td></tr></table></figure>
+<hr />
+<hr />
+<hr />
+<hr />
+<hr />
+<h2 id="代码引用"><a class="markdownIt-Anchor" href="#代码引用"></a> 代码引用</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">使用一对1个`包裹起来来引用一行代码</span><br><span class="line">使用一对3个`包裹起来来引用多行代码，可以指定语言</span><br></pre></td></tr></table></figure>
+<p><code>一行代码</code></p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">多行代码</span><br></pre></td></tr></table></figure>
+<h2 id="表格"><a class="markdownIt-Anchor" href="#表格"></a> 表格</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">| Tables        | Are           | Cool  |</span><br><span class="line">| ------------- |:-------------:| -----:|</span><br><span class="line">| col 3 is      | right-aligned | $1600 |</span><br><span class="line">| col 2 is      | centered      |   $12 |</span><br><span class="line">| zebra stripes | are neat      |    $1 |</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Tables</th>
+<th style="text-align:center">Are</th>
+<th style="text-align:right">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col 3 is</td>
+<td style="text-align:center">right-aligned</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td>zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="流程图可能需要插件"><a class="markdownIt-Anchor" href="#流程图可能需要插件"></a> 流程图（可能需要插件）</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">&#123;3个`&#125;flow</span><br><span class="line">st=&gt;start: 开始:&gt;http://www.google.com[blank]</span><br><span class="line">e=&gt;end: 结束:&gt;http://www.google.com</span><br><span class="line">op1=&gt;operation: 我的行动</span><br><span class="line">sub1=&gt;subroutine: 我的子程序</span><br><span class="line">cond=&gt;condition: 是或否?:&gt;http://www.google.com</span><br><span class="line">io=&gt;inputoutput: 抓住一些东西...</span><br><span class="line">st-&gt;op1-&gt;cond</span><br><span class="line">cond(yes)-&gt;io-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op1</span><br><span class="line">&#123;3个`&#125;</span><br></pre></td></tr></table></figure>
+<div id="flowchart-0" class="flow-chart"></div>
+<h2 id="序列可能需要插件"><a class="markdownIt-Anchor" href="#序列可能需要插件"></a> 序列（可能需要插件）</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">&#123;3个`&#125;sequence</span><br><span class="line">Alice-&gt;Bob: Hello Bob, how are you?</span><br><span class="line">Note right of Bob: Bob thinks</span><br><span class="line">Bob--&gt;Alice: I am good thanks!</span><br><span class="line">&#123;3个`&#125;</span><br></pre></td></tr></table></figure>
+<div id="sequence-0"></div>
+<h2 id="数学公式可能需要插件"><a class="markdownIt-Anchor" href="#数学公式可能需要插件"></a> 数学公式（可能需要插件）</h2>
+<h3 id="行内"><a class="markdownIt-Anchor" href="#行内"></a> 行内</h3>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">单位圆公式 $x^2+y^2=1$</span><br></pre></td></tr></table></figure>
+<p>单位圆公式 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x^2+y^2=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<h3 id="段落"><a class="markdownIt-Anchor" href="#段落"></a> 段落</h3>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">单位圆公式</span><br><span class="line"></span><br><span class="line">$$x^2+y^2=1$$</span><br></pre></td></tr></table></figure>
+<p>单位圆公式</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x^2+y^2=1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9474379999999999em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.0585479999999998em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span></p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 开始:>http://www.google.com[blank]
+e=>end: 结束:>http://www.google.com
+op1=>operation: 我的行动
+sub1=>subroutine: 我的子程序
+cond=>condition: 是或否?:>http://www.google.com
+io=>inputoutput: 抓住一些东西...
+st->op1->cond
+cond(yes)->io->e
+cond(no)->sub1(right)->op1</textarea><textarea id="flowchart-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script>]]></content>
+      <categories>
+        <category>markdown</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python中的一些概念</title>
+    <url>/2018/01/16/python%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<h1 id="python中的一些概念"><a class="markdownIt-Anchor" href="#python中的一些概念"></a> Python中的一些概念</h1>
+<p><strong>这里只简单概述一些python中的概念，更多内容请自行通过书籍资料学习。</strong></p>
+<a id="more"></a>
+<h2 id="闭包"><a class="markdownIt-Anchor" href="#闭包"></a> 闭包</h2>
+<blockquote>
+<p><strong>Wiki</strong> 在计算机科学中，闭包，又称词法闭包或函数闭包，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。 所以，有另一种说法认为闭包是由函数和与其相关的引用环境组合而成的实体。</p>
+</blockquote>
+<p>在如下例子中，<code>func</code>构成一个闭包，其中的自由变量<code>n</code>和<code>dictionary</code>与<code>func</code>一同存在。<code>func</code>函数返回了<code>add_value</code>这个函数，<code>add_value</code>这个函数又使用了父函数<code>func</code>中的变量。原本函数中的局部变量仅仅在函数的执行期间是可用的，我们会认为<code>n</code>和<code>dictionary</code>在执行完<code>f1=func('1')</code>这段代码之后应该就不可用了，但是事实上它们会同<code>func</code>一同存在，这种现象就是闭包。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">name</span>):</span>  <span class="comment"># func构成一个闭包</span></span><br><span class="line">    n = name  <span class="comment"># n是自由变量</span></span><br><span class="line">    dictionary = &#123;&#125;  <span class="comment"># dictionary是自由变量</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_value</span>(<span class="params">k, v</span>):</span></span><br><span class="line">        dictionary[k] = v</span><br><span class="line">        print(<span class="string">&#x27;&#123;&#125;: &#123;&#125;&#x27;</span>.format(n, dictionary))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> add_value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f1 = func(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">f2 = func(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">f1(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;Alice&#x27;</span>)</span><br><span class="line">f1(<span class="string">&#x27;age&#x27;</span>, <span class="number">18</span>)</span><br><span class="line">f2(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;Bob&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 1: &#123;&#x27;name&#x27;: &#x27;Alice&#x27;&#125;</span></span><br><span class="line"><span class="comment"># 1: &#123;&#x27;name&#x27;: &#x27;Alice&#x27;, &#x27;age&#x27;: 18&#125;</span></span><br><span class="line"><span class="comment"># 2: &#123;&#x27;name&#x27;: &#x27;Bob&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="装饰器"><a class="markdownIt-Anchor" href="#装饰器"></a> 装饰器</h2>
+<p>装饰器与闭包十分相似，装饰器能够在不改变原有函数的情况下给函数添加新的功能。它的实质其实是接受了函数作为参数，经过添加一些功能（装饰），然后返回了一个被装饰后的函数。<br />
+装饰器的用途很多，不光能动态增加函数的功能，还能用来存储信息，这点与闭包是相似的，可以在装饰器中存储自由变量。<br />
+下面的例子中，装饰器<code>elapsed</code>给<code>fib</code>添加了计算耗时的功能，这个时候的<code>fib</code>已经不是原本的<code>fib</code>了，而是被<code>elapsed</code>返回的<code>wrapper</code>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">elapsed</span>(<span class="params">f</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">        start = time.clock()</span><br><span class="line">        ans = f(*args, **kwargs)</span><br><span class="line">        print(<span class="string">&#x27;使用了&#123;:f&#125;秒&#x27;</span>.format(time.clock() - start))</span><br><span class="line">        <span class="keyword">return</span> ans</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@elapsed</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib</span>(<span class="params">n</span>):</span></span><br><span class="line">    prev, curr = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n<span class="number">-1</span>):</span><br><span class="line">        prev, curr = curr, prev + curr</span><br><span class="line">    <span class="keyword">return</span> prev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(fib(<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 使用了0.000011秒</span></span><br><span class="line"><span class="comment"># 218922995834555169026</span></span><br></pre></td></tr></table></figure>
+<p>下面的例子中介绍了装饰器如何存储信息。我们使用<code>register</code>装饰器来存储注册的函数。这个功能在一些python的web框架中有使用，被用来注册views，这样控制器在接到request时就知道去哪里找对应的响应函数。<strong>注：装饰器会在模块加载的时候执行</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span>(<span class="params">f</span>):</span></span><br><span class="line">    dictionary = &#123;&#125;</span><br><span class="line">    dictionary[f.__name__] = f</span><br><span class="line">    print(<span class="string">&#x27;已经注册的函数：&#123;&#125;&#x27;</span>.format(dictionary))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">        f(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@register</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func1</span>():</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@register</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span>():</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@register</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func3</span>():</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 已经注册的函数：&#123;&#x27;func1&#x27;: &lt;function func1 at 0x000002A81F633840&gt;&#125;</span></span><br><span class="line"><span class="comment"># 已经注册的函数：&#123;&#x27;func2&#x27;: &lt;function func2 at 0x000002A81F633950&gt;&#125;</span></span><br><span class="line"><span class="comment"># 已经注册的函数：&#123;&#x27;func3&#x27;: &lt;function func3 at 0x000002A81F633A60&gt;&#125;</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="迭代器与生成器"><a class="markdownIt-Anchor" href="#迭代器与生成器"></a> 迭代器与生成器</h2>
+<blockquote>
+<p><strong>Wiki</strong> 迭代器（iterator）是一种对象，它能够用来遍历标准模板库容器中的部分或全部元素，每个迭代器对象代表容器中的确定的地址。迭代器修改了常规指针的接口，所谓迭代器是一种概念上的抽象：那些行为上像迭代器的东西都可以叫做迭代器。然而迭代器有很多不同的能力，它可以把抽象容器和通用算法有机的统一起来。</p>
+</blockquote>
+<p>迭代器的概念来源于设计模式。在python中，迭代器实现了<code>__iter__</code>和<code>__next__</code>方法。<strong>注：Iterable和Iterator的区别：Iterable实现了<code>__iter__</code>方法/接口（返回一个Iterator），而Iterator实现了<code>__iter__</code>（Iterator本身也是Iterable）和<code>__next__</code>方法/接口。</strong><br />
+由于迭代器实现了<code>__next__</code>方法，就可以通过<code>next(iterator)</code>来获取下一个元素，直到没有下一个元素时，抛出<code>StopIteration</code>异常。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = range(<span class="number">10</span>)</span><br><span class="line">s = iter(s)  <span class="comment"># 返回迭代器</span></span><br><span class="line">print(next(s))  <span class="comment"># 打印出下一个元素</span></span><br><span class="line">print(next(s))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
+<p>迭代器在python中使用很多，比如我们对<code>range list tuple dict set</code>使用<code>for .. in ..</code>的时候，会自动调用<code>iter</code>函数返回一个迭代器，并且这个语句会自动处理<code>StopIteration</code>异常。python标准库<code>itertools</code>中有很多有用的与迭代器有关的工具。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = range(<span class="number">3</span>)</span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> s:</span><br><span class="line">    print(e)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
+<p>生成器（generator）是一种特殊的迭代器。像我们之前使用的<code>range</code>就是一个生成器。python中使用<code>yield</code>关键词而不是<code>return</code>来定义一个生成器。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator</span>():</span></span><br><span class="line">    n = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">        n += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gen = generator()</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    print(next(gen))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
+<p>从上述例子中，我们可以看出生成器是惰性求值的实现，如果我们希望遍历一个很大的列表，但是又不希望存储这么多的元素，我们就可以使用生成器。比如上述例子是用来产生一个无穷的计数器，显然我们不可能存储无穷多个数字，我们可以使用生成器，这样每次只产生一个数字，当然这样的话就只能按顺序获取元素，而不能随机访问。</p>
+<p>除了使用<code>yield</code>关键词外，另一种定义生成器的方法类似于列表推导，但是将<code>[]</code>替换为<code>()</code>了。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">gen = (i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">print(next(gen))</span><br><span class="line">print(next(gen))</span><br><span class="line">print(next(gen))</span><br><span class="line">print(next(gen)) <span class="comment"># 会抛出StopIteration异常，因为没有元素了</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># Traceback (most recent call last):</span></span><br><span class="line"><span class="comment">#  File &quot;c:/Users/Zaki/Desktop/test3.py&quot;, line 6, in &lt;module&gt;</span></span><br><span class="line"><span class="comment">#    print(next(gen))</span></span><br><span class="line"><span class="comment"># StopIteration</span></span><br></pre></td></tr></table></figure>
+<p>还可以通过<code>yield from</code>关键词来从别的生成器产生新的生成器。比如下面的例子中合并了两个生成器为一个生成器。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib</span>(<span class="params">n</span>):</span></span><br><span class="line">    prev, curr = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> range(n):</span><br><span class="line">        <span class="keyword">yield</span> curr</span><br><span class="line">        prev, curr = curr, prev + curr</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">new_generator</span>():</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> range(<span class="number">3</span>)</span><br><span class="line">    print(<span class="string">&#x27;fib&#x27;</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> fib(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gen = new_generator()</span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> gen:</span><br><span class="line">    print(e)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># fib</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="协程"><a class="markdownIt-Anchor" href="#协程"></a> 协程</h2>
+<p>协程（Coroutine）是一种程序组件，类似于子程序。可以用来处理并发。python中同样是使用<code>yield</code>关键词来产生协程，<strong>但是这两个是不同的东西！</strong>，并且协程的<code>yield</code>在<code>=</code>的右边。协程在执行到<code>yield</code>时会暂停，直到通过<code>send</code>发送一个数据给协程来继续。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">coroutine</span>():</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        print(<span class="string">&#x27;准备接收x&#x27;</span>)</span><br><span class="line">        x = <span class="keyword">yield</span></span><br><span class="line">        print(<span class="string">&#x27;接收到 x=&#123;&#125;&#x27;</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">co = coroutine()</span><br><span class="line">next(co)  <span class="comment"># 需要使用next()或者co.send(None)来激活协程</span></span><br><span class="line">co.send(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 准备接收x</span></span><br><span class="line"><span class="comment"># 接收到 x=1</span></span><br><span class="line"><span class="comment"># 准备接收x</span></span><br></pre></td></tr></table></figure>
+<p>还可以通过<code>yield from</code>关键词来从一个子协程中产生协程，并且此时会自动激活子协程。这种方式可以想象成这个协程建立了调用方和子协程之间的通道。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub_coroutine</span>():</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        print(<span class="string">&#x27;子协程等待 x&#x27;</span>)</span><br><span class="line">        x = <span class="keyword">yield</span></span><br><span class="line">        print(<span class="string">&#x27;接收到 x=&#123;&#125;&#x27;</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">coroutine</span>():</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        print(<span class="string">&#x27;协程准备&#x27;</span>)</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">from</span> sub_coroutine()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">co = coroutine()</span><br><span class="line">next(co)  <span class="comment"># 这个协程还是需要激活的</span></span><br><span class="line">co.send(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">co.send(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 协程准备</span></span><br><span class="line"><span class="comment"># 子协程等待 x</span></span><br><span class="line"><span class="comment"># 接收到 x=1</span></span><br><span class="line"><span class="comment"># 子协程等待 x</span></span><br><span class="line"><span class="comment"># 接收到 x=2</span></span><br><span class="line"><span class="comment"># 子协程等待 x</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="上下文管理"><a class="markdownIt-Anchor" href="#上下文管理"></a> 上下文管理</h2>
+<p>在python中，上下文管理非常常见，比如<code>with</code>语句。当我们使用<code>with</code>语句时，就构建了一个上下文环境，在这个环境中，我们可以做一些事情，比如操作IO，当我们退出了这个环境时，上下文管理器可以帮我们自动进行一些事后处理，比如关闭IO。<br />
+下面的例子中，我们使用<code>@contextlib.contextmanager</code>装饰器来装饰<code>my_open</code>函数，让这个函数成为了上下文管理器，它会帮我们在操作文件完成后自动关闭文件，效果和<code>with open() as f</code>相似，不过没有很好处理异常。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> contextlib</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@contextlib.contextmanager</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_open</span>(<span class="params">*args</span>):</span></span><br><span class="line">    f_handler = open(*args)</span><br><span class="line">    msg = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">yield</span> f_handler</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">        msg = err.msg()</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        f_handler.close()</span><br><span class="line">        <span class="keyword">if</span> msg:</span><br><span class="line">            print(msg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> my_open(<span class="string">&#x27;D:\\1.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(<span class="string">&#x27;123&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="comment"># 会创建文件&#x27;D:\\1.txt&#x27;并写入&#x27;123&#x27;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python的itertools工具包中的生成器</title>
+    <url>/2018/01/13/python%E7%9A%84itertools%E5%B7%A5%E5%85%B7%E5%8C%85%E4%B8%AD%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8/</url>
+    <content><![CDATA[<h1 id="python标准库中itertools工具包中的生成器"><a class="markdownIt-Anchor" href="#python标准库中itertools工具包中的生成器"></a> Python标准库中Itertools工具包中的生成器</h1>
+<a id="more"></a>
+<h2 id="1-用于扩展输出的生成器函数"><a class="markdownIt-Anchor" href="#1-用于扩展输出的生成器函数"></a> 1 用于扩展输出的生成器函数</h2>
+<h3 id="countstart0-step1"><a class="markdownIt-Anchor" href="#countstart0-step1"></a> count(start=0, step=1)</h3>
+<blockquote>
+<p>说明：从start开始不断产出数字，步长为step</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 产生3以后的数字，步长为3</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">gen = itertools.count(<span class="number">3</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    print(next(gen))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 6</span></span><br><span class="line"><span class="comment"># 9</span></span><br><span class="line"><span class="comment"># 12</span></span><br><span class="line"><span class="comment"># 15</span></span><br></pre></td></tr></table></figure>
+<h3 id="cycleit"><a class="markdownIt-Anchor" href="#cycleit"></a> cycle(it)</h3>
+<blockquote>
+<p>说明：循环产出it中的元素</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 时钟生成</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">hours = range(<span class="number">1</span>, <span class="number">13</span>)</span><br><span class="line"></span><br><span class="line">gen = itertools.cycle(hours)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">24</span>):</span><br><span class="line">    print(next(gen))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># 11</span></span><br><span class="line"><span class="comment"># 12</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># 11</span></span><br><span class="line"><span class="comment"># 12</span></span><br></pre></td></tr></table></figure>
+<h3 id="repeatitem-times"><a class="markdownIt-Anchor" href="#repeatitem-times"></a> repeat(item, [times])</h3>
+<blockquote>
+<p>说明：不断重复产生item，除非提供了times参数</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 不断产生hello</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">gen = itertools.repeat(<span class="string">&#x27;hello&#x27;</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># hello</span></span><br><span class="line"><span class="comment"># hello</span></span><br><span class="line"><span class="comment"># hello</span></span><br></pre></td></tr></table></figure>
+<h3 id="combinationsit-out_len"><a class="markdownIt-Anchor" href="#combinationsit-out_len"></a> combinations(it, out_len)</h3>
+<blockquote>
+<p>说明：这是一种组合学生成器，可以用来生成it中out_len个元素的组合</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 产生列表a中的任意两个元素的不重复选取的组合，取出不放回的问题</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>]</span><br><span class="line"></span><br><span class="line">gen = itertools.combinations(a, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># (&#x27;a&#x27;, &#x27;b&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;a&#x27;, &#x27;c&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;a&#x27;, &#x27;d&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;b&#x27;, &#x27;c&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;b&#x27;, &#x27;d&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;c&#x27;, &#x27;d&#x27;)</span></span><br></pre></td></tr></table></figure>
+<h3 id="combinations_with_replacementit-out_len"><a class="markdownIt-Anchor" href="#combinations_with_replacementit-out_len"></a> combinations_with_replacement(it, out_len)</h3>
+<blockquote>
+<p>说明：与combinations相似，不过其中的元素可以重复</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 产生列表a中的任意两个元素的可以重复选取的组合，取出并放回的问题</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]</span><br><span class="line"></span><br><span class="line">gen = itertools.combinations_with_replacement(a, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># (&#x27;a&#x27;, &#x27;a&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;a&#x27;, &#x27;b&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;a&#x27;, &#x27;c&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;b&#x27;, &#x27;b&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;b&#x27;, &#x27;c&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;c&#x27;, &#x27;c&#x27;)</span></span><br></pre></td></tr></table></figure>
+<h3 id="permutationsit-out_lennone"><a class="markdownIt-Anchor" href="#permutationsit-out_lennone"></a> permutations(it, out_len=None)</h3>
+<blockquote>
+<p>说明：这是一种组合学生成器，可以用来生成it中out_len个元素的排列</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 产生列表a中的任意两个元素的排列</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]</span><br><span class="line"></span><br><span class="line">gen = itertools.permutations(a)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># (&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;a&#x27;, &#x27;c&#x27;, &#x27;b&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;b&#x27;, &#x27;a&#x27;, &#x27;c&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;b&#x27;, &#x27;c&#x27;, &#x27;a&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;c&#x27;, &#x27;a&#x27;, &#x27;b&#x27;)</span></span><br><span class="line"><span class="comment"># (&#x27;c&#x27;, &#x27;b&#x27;, &#x27;a&#x27;)</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="2-用于过滤的生成器函数"><a class="markdownIt-Anchor" href="#2-用于过滤的生成器函数"></a> 2 用于过滤的生成器函数</h2>
+<h3 id="compressit-selector_it"><a class="markdownIt-Anchor" href="#compressit-selector_it"></a> compress(it, selector_it)</h3>
+<blockquote>
+<p>说明：并行地处理两个iterator，如果selector_it中的元素为真，产出it中对应位置的元素</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 选择出字符串a中对应位置的字符</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = <span class="string">&#x27;example&#x27;</span></span><br><span class="line">b = (<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">gen = itertools.compress(a, b)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># e</span></span><br><span class="line"><span class="comment"># m</span></span><br><span class="line"><span class="comment"># e</span></span><br></pre></td></tr></table></figure>
+<h3 id="takewhilepred-it"><a class="markdownIt-Anchor" href="#takewhilepred-it"></a> takewhile(pred, it)</h3>
+<blockquote>
+<p>说明：从it中产出元素直到pred为假时停止</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从列表a中选择出小于5的那些数字</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line"></span><br><span class="line">gen = itertools.takewhile(<span class="keyword">lambda</span> n: n &lt; <span class="number">5</span>, a)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
+<h3 id="dropwhilepred-it"><a class="markdownIt-Anchor" href="#dropwhilepred-it"></a> dropwhile(pred, it)</h3>
+<blockquote>
+<p>说明：与takewhile相反，pred为假时开始从it中产出元素</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从列表a中选择出大于等于5的那些数字</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line"></span><br><span class="line">gen = itertools.dropwhile(<span class="keyword">lambda</span> n: n &lt; <span class="number">5</span>, a)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 5</span></span><br><span class="line"><span class="comment"># 6</span></span><br><span class="line"><span class="comment"># 7</span></span><br></pre></td></tr></table></figure>
+<h3 id="filterfalsepred-it"><a class="markdownIt-Anchor" href="#filterfalsepred-it"></a> filterfalse(pred, it)</h3>
+<blockquote>
+<p>说明：与内置函数filter(pred, it)相反，将it从各个元素传给pred，如果返回为假，则产出这个元素</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从列表a中选择出不为偶数的那些数字</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line"></span><br><span class="line">gen = itertools.filterfalse(<span class="keyword">lambda</span> n: n % <span class="number">2</span> == <span class="number">0</span>, a)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 5</span></span><br><span class="line"><span class="comment"># 7</span></span><br></pre></td></tr></table></figure>
+<h3 id="isliceit-stopisliceit-start-stop-step1"><a class="markdownIt-Anchor" href="#isliceit-stopisliceit-start-stop-step1"></a> islice(it, stop)/islice(it, start, stop, step=1)</h3>
+<blockquote>
+<p>说明：产出it的切片，作用类似于s[:stop]或者s[start:stop:step]，不过it是任何可迭代对象，而且返回一个生成器</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从列表a中选择出特定位置的那些数字</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line"></span><br><span class="line">gen = itertools.islice(a, <span class="number">4</span>)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"></span><br><span class="line">gen = itertools.islice(a, <span class="number">2</span>, <span class="number">6</span>)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 5</span></span><br><span class="line"><span class="comment"># 6</span></span><br><span class="line"></span><br><span class="line">gen = itertools.islice(a, <span class="number">2</span>, <span class="number">6</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 5</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="3-用于合并多个可迭代对象的生成器函数"><a class="markdownIt-Anchor" href="#3-用于合并多个可迭代对象的生成器函数"></a> 3 用于合并多个可迭代对象的生成器函数</h2>
+<h3 id="chainit1-it2-itn"><a class="markdownIt-Anchor" href="#chainit1-it2-itn"></a> chain(it1, it2, … itN)</h3>
+<blockquote>
+<p>说明：将it1到itN串行连接起来</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将a和b合并为一个生成器</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = range(<span class="number">0</span>, <span class="number">10</span>, <span class="number">2</span>)</span><br><span class="line">b = range(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">gen = itertools.chain(a, b)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># 8</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># 9</span></span><br></pre></td></tr></table></figure>
+<h3 id="productit1-it2-itn-repeat1"><a class="markdownIt-Anchor" href="#productit1-it2-itn-repeat1"></a> product(it1, it2, …, itN, repeat=1)</h3>
+<blockquote>
+<p>说明：计算笛卡尔积，从每个it中获取元素，合并成N个元素组成的元组，repeat指明重复处理多少次输入的可迭代对象</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 计算a和b的笛卡尔积</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">b = [<span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">gen = itertools.product(a, b)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># (0, 2)</span></span><br><span class="line"><span class="comment"># (0, 3)</span></span><br><span class="line"><span class="comment"># (1, 2)</span></span><br><span class="line"><span class="comment"># (1, 3)</span></span><br></pre></td></tr></table></figure>
+<h3 id="zip_longestit1-it2-itn-fillvaluenone"><a class="markdownIt-Anchor" href="#zip_longestit1-it2-itn-fillvaluenone"></a> zip_longest(it1, it2, … itN, fillvalue=None)</h3>
+<blockquote>
+<p>说明：并行地从各个it中获取元素，产出N个元素组成的元组，直到最长的it到头后才停止，空缺的值由fillvalue填充</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">b = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"></span><br><span class="line">gen = itertools.zip_longest(a, b)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># (0, 2)</span></span><br><span class="line"><span class="comment"># (1, 3)</span></span><br><span class="line"><span class="comment"># (None, 4)</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="4-用于映射的生成器函数"><a class="markdownIt-Anchor" href="#4-用于映射的生成器函数"></a> 4 用于映射的生成器函数</h2>
+<h3 id="accumulateit-func"><a class="markdownIt-Anchor" href="#accumulateit-func"></a> accumulate(it, [func])</h3>
+<blockquote>
+<p>说明：产出it累计的总和，如果提供了func，那么会将前两个元素传给func，然后把计算结果和下一个元素传给func，以此类推</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">gen = itertools.accumulate(a)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 11</span></span><br><span class="line"><span class="comment"># 13</span></span><br><span class="line"><span class="comment"># 18</span></span><br><span class="line"><span class="comment"># 19</span></span><br><span class="line"></span><br><span class="line">gen = itertools.accumulate(a, max)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">    print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 7</span></span><br><span class="line"><span class="comment"># 7</span></span><br><span class="line"><span class="comment"># 7</span></span><br><span class="line"><span class="comment"># 7</span></span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="5-用于重新排列元素的生成器"><a class="markdownIt-Anchor" href="#5-用于重新排列元素的生成器"></a> 5 用于重新排列元素的生成器</h2>
+<h3 id="groupbyit-keynone"><a class="markdownIt-Anchor" href="#groupbyit-keynone"></a> groupby(it, key=None)</h3>
+<blockquote>
+<p>说明：产出由两个元素组成的元素，形式为(key, group)，其中key为分组标准，group是生成器，用于产出分组里的元素</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 根据列表中的单词的长度进行分组</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = [</span><br><span class="line">    <span class="string">&#x27;rat&#x27;</span>, <span class="string">&#x27;pig&#x27;</span>, <span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>, <span class="string">&#x27;eagle&#x27;</span>, <span class="string">&#x27;giraffe&#x27;</span>, <span class="string">&#x27;dolphin&#x27;</span>, <span class="string">&#x27;elephant&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;bear&#x27;</span>, <span class="string">&#x27;duck&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> length, group <span class="keyword">in</span> itertools.groupby(a, len):</span><br><span class="line">    print(length, <span class="string">&#x27;--&gt;&#x27;</span>, list(group))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 3 --&gt; [&#x27;rat&#x27;, &#x27;pig&#x27;, &#x27;cat&#x27;, &#x27;dog&#x27;]</span></span><br><span class="line"><span class="comment"># 5 --&gt; [&#x27;eagle&#x27;]</span></span><br><span class="line"><span class="comment"># 7 --&gt; [&#x27;giraffe&#x27;, &#x27;dolphin&#x27;]</span></span><br><span class="line"><span class="comment"># 8 --&gt; [&#x27;elephant&#x27;]</span></span><br><span class="line"><span class="comment"># 4 --&gt; [&#x27;bear&#x27;, &#x27;duck&#x27;]</span></span><br></pre></td></tr></table></figure>
+<h3 id="teeit-n2"><a class="markdownIt-Anchor" href="#teeit-n2"></a> tee(it, n=2)</h3>
+<blockquote>
+<p>说明：产出n个生成器组成的元组，每个生成器用于单独产出输入的可迭代对象中的元素</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 产生3个生成器a</span></span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">a = range(<span class="number">1</span>, <span class="number">5</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">gens = itertools.tee(a, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">for</span> gen <span class="keyword">in</span> gens:</span><br><span class="line">    <span class="keyword">for</span> elem <span class="keyword">in</span> gen:</span><br><span class="line">        print(elem)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 3</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>两种防御性编程手段</title>
+    <url>/2018/01/12/%E4%B8%A4%E7%A7%8D%E9%98%B2%E5%BE%A1%E6%80%A7%E7%BC%96%E7%A8%8B%E6%89%8B%E6%AE%B5/</url>
+    <content><![CDATA[<p>两种防御性编程手段</p>
+<p>LBYL: Look Before You Leap</p>
+<p>EAFP: It’s Easier to Ask Forgiveness than Permission</p>
+<p>第一种手段也就是事先进行检查</p>
+<p>第二种手段也就是不进行检查，出了异常再处理异常</p>
+<a id="more"></a>
+<p>给出一个示例</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = &#123;&#125;</span><br><span class="line">b = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># LBYL</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> b:</span><br><span class="line">    <span class="keyword">if</span> c <span class="keyword">not</span> <span class="keyword">in</span> a:</span><br><span class="line">        a[c] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        a[c] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># EAFP</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> b:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        a[c] += <span class="number">1</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        a[c] = <span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>EAFP可能会降低一些性能，但是在异常发生可能性比较低的时候影响不大<br />
+另外对于原子操作推荐使用EAFP的方式</p>
+]]></content>
+      <categories>
+        <category>常用</category>
+      </categories>
+      <tags>
+        <tag>小技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用正则表达式</title>
+    <url>/2017/12/19/%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="常用正则表达式"><a class="markdownIt-Anchor" href="#常用正则表达式"></a> 常用正则表达式</h1>
+<a id="more"></a>
+<h2 id="校验数字的表达式"><a class="markdownIt-Anchor" href="#校验数字的表达式"></a> 校验数字的表达式</h2>
+<figure class="highlight re"><table><tr><td class="code"><pre><span class="line">数字：^<span class="literal">[<span class="number">0</span>-<span class="number">9</span>]</span>*$</span><br><span class="line">n位的数字：^\d&#123;n&#125;$</span><br><span class="line">至少n位的数字：^\d&#123;n,&#125;$</span><br><span class="line">m-n位的数字：^\d&#123;m,n&#125;$</span><br><span class="line">零和非零开头的数字：^(<span class="number">0</span><span class="pattern-match">|[1-9][0-9]<span class="operator">*</span>)<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">非零开头的最多带两位小数的数字：^([1-9][0-9]<span class="operator">*</span>)+(.[0-9]&#123;1,2&#125;)?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">带1-2位小数的正数或负数：^(\-)?\d+(\.\d&#123;1,2&#125;)?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">正数、负数、和小数：^(\-|\+)?\d+(\.\d+)?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">有两位小数的正实数：^[0-9]+(.[0-9]&#123;2&#125;)?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">有1~3位小数的正实数：^[0-9]+(.[0-9]&#123;1,3&#125;)?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">非零的正整数：^[1-9]\d<span class="operator">*</span><span class="constructor">$</span> 或 ^([1-9][0-9]<span class="operator">*</span>)&#123;1,3&#125;<span class="constructor">$</span> 或 ^\+?[1-9][0-9]<span class="operator">*</span><span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">非零的负整数：^\-[1-9][]0-9″<span class="operator">*</span><span class="constructor">$</span> 或 ^-[1-9]\d<span class="operator">*</span><span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">非负整数：^\d+<span class="constructor">$</span> 或 ^[1-9]\d<span class="operator">*</span>|0<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">非正整数：^-[1-9]\d<span class="operator">*</span>|0<span class="constructor">$</span> 或 ^((-\d+)|(0+))<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">非负浮点数：^\d+(\.\d+)?<span class="constructor">$</span> 或 ^[1-9]\d<span class="operator">*</span>\.\d<span class="operator">*</span>|0\.\d<span class="operator">*</span>[1-9]\d<span class="operator">*</span>|0?\.0+|0<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">非正浮点数：^((-\d+(\.\d+)?)|(0+(\.0+)?))<span class="constructor">$</span> 或 ^(-([1-9]\d<span class="operator">*</span>\.\d<span class="operator">*</span>|0\.\d<span class="operator">*</span>[1-9]\d<span class="operator">*</span>))|0?\.0+|0<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">正浮点数：^[1-9]\d<span class="operator">*</span>\.\d<span class="operator">*</span>|0\.\d<span class="operator">*</span>[1-9]\d<span class="operator">*</span><span class="constructor">$</span> 或 ^(([0-9]+\.[0-9]<span class="operator">*</span>[1-9][0-9]<span class="operator">*</span>)|([0-9]<span class="operator">*</span>[1-9][0-9]<span class="operator">*</span>\.[0-9]+)|([0-9]<span class="operator">*</span>[1-9][0-9]<span class="operator">*</span>))<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">负浮点数：^-([1-9]\d<span class="operator">*</span>\.\d<span class="operator">*</span>|0\.\d<span class="operator">*</span>[1-9]\d<span class="operator">*</span>)<span class="constructor">$</span> 或 ^(-(([0-9]+\.[0-9]<span class="operator">*</span>[1-9][0-9]<span class="operator">*</span>)|([0-9]<span class="operator">*</span>[1-9][0-9]<span class="operator">*</span>\.[0-9]+)|([0-9]<span class="operator">*</span>[1-9][0-9]<span class="operator">*</span>)))<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">浮点数：^(-?\d+)(\.\d+)?<span class="constructor">$</span> 或 ^-?([1-9]\d<span class="operator">*</span>\.\d<span class="operator">*</span>|0\.\d<span class="operator">*</span>[1-9]\d<span class="operator">*</span>|0?\.0+|0)<span class="constructor">$</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="校验字符的表达式"><a class="markdownIt-Anchor" href="#校验字符的表达式"></a> 校验字符的表达式</h2>
+<figure class="highlight re"><table><tr><td class="code"><pre><span class="line">汉字：^<span class="literal">[\<span class="identifier">u4e00</span>-\<span class="identifier">u9fa5</span>]</span>&#123;<span class="number">0</span>,&#125;$</span><br><span class="line">英文和数字：^<span class="literal">[A-Z<span class="identifier">a</span>-<span class="identifier">z0</span>-<span class="number">9</span>]</span>+$ 或 ^<span class="literal">[A-Z<span class="identifier">a</span>-<span class="identifier">z0</span>-<span class="number">9</span>]</span>&#123;<span class="number">4</span>,<span class="number">40</span>&#125;$</span><br><span class="line">长度为<span class="number">3</span>-<span class="number">20</span>的所有字符：^.&#123;<span class="number">3</span>,<span class="number">20</span>&#125;$</span><br><span class="line">由<span class="number">26</span>个英文字母组成的字符串：^<span class="literal">[A-Z<span class="identifier">a</span>-<span class="identifier">z</span>]</span>+$</span><br><span class="line">由<span class="number">26</span>个大写英文字母组成的字符串：^<span class="literal">[A-Z]</span>+$</span><br><span class="line">由<span class="number">26</span>个小写英文字母组成的字符串：^<span class="literal">[<span class="identifier">a</span>-<span class="identifier">z</span>]</span>+$</span><br><span class="line">由数字和<span class="number">26</span>个英文字母组成的字符串：^<span class="literal">[A-Z<span class="identifier">a</span>-<span class="identifier">z0</span>-<span class="number">9</span>]</span>+$</span><br><span class="line">由数字、<span class="number">26</span>个英文字母或者下划线组成的字符串：^\w+$ 或 ^\w&#123;<span class="number">3</span>,<span class="number">20</span>&#125;$</span><br><span class="line">中文、英文、数字包括下划线：^<span class="literal">[\<span class="identifier">u4E00</span>-\<span class="identifier">u9FA5A</span>-Z<span class="identifier">a</span>-<span class="identifier">z0</span>-<span class="number">9_</span>]</span>+$</span><br><span class="line">中文、英文、数字但不包括下划线等符号：^<span class="literal">[\<span class="identifier">u4E00</span>-\<span class="identifier">u9FA5A</span>-Z<span class="identifier">a</span>-<span class="identifier">z0</span>-<span class="number">9</span>]</span>+$ 或 ^<span class="literal">[\<span class="identifier">u4E00</span>-\<span class="identifier">u9FA5A</span>-Z<span class="identifier">a</span>-<span class="identifier">z0</span>-<span class="number">9</span>]</span>&#123;<span class="number">2</span>,<span class="number">20</span>&#125;$</span><br><span class="line">可以输入含有^%&amp;’,;=?$\”等字符：<span class="literal">[^%&amp;&#x27;,;=?<span class="identifier">$</span>\<span class="identifier">x22</span>]</span>+</span><br><span class="line">禁止输入含有~的字符：<span class="literal">[^~\<span class="identifier">x22</span>]</span>+</span><br></pre></td></tr></table></figure>
+<h2 id="特殊需求表达式"><a class="markdownIt-Anchor" href="#特殊需求表达式"></a> 特殊需求表达式</h2>
+<figure class="highlight re"><table><tr><td class="code"><pre><span class="line">Email地址：^\w+(<span class="literal">[-<span class="operator">+.</span>]</span>\w+)*@\w+(<span class="literal">[-.]</span>\w+)*\.\w+(<span class="literal">[-.]</span>\w+)*$</span><br><span class="line">域名：<span class="literal">[<span class="identifier">a</span>-<span class="identifier">zA</span>-Z0-<span class="number">9</span>]</span><span class="literal">[-<span class="identifier">a</span>-<span class="identifier">zA</span>-Z0-<span class="number">9</span>]</span>&#123;<span class="number">0</span>,<span class="number">62</span>&#125;(/.<span class="literal">[<span class="identifier">a</span>-<span class="identifier">zA</span>-Z0-<span class="number">9</span>]</span><span class="literal">[-<span class="identifier">a</span>-<span class="identifier">zA</span>-Z0-<span class="number">9</span>]</span>&#123;<span class="number">0</span>,<span class="number">62</span>&#125;)+/.?</span><br><span class="line">InternetURL：<span class="literal">[<span class="identifier">a</span>-<span class="identifier">zA</span>-<span class="identifier">z</span>]</span>+:<span class="comment">//[^\s]* 或 ^http://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$</span></span><br><span class="line">手机号码：^(<span class="number">13</span><span class="literal">[<span class="number">0</span>-<span class="number">9</span>]</span><span class="pattern-match">|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d&#123;8&#125;<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">电话号码(“<span class="constructor">XXX</span>-<span class="constructor">XXXXXXX</span>”、”<span class="constructor">XXXX</span>-<span class="constructor">XXXXXXXX</span>”、”<span class="constructor">XXX</span>-<span class="constructor">XXXXXXX</span>”、”<span class="constructor">XXX</span>-<span class="constructor">XXXXXXXX</span>”、”<span class="constructor">XXXXXXX</span>”和”<span class="constructor">XXXXXXXX</span>)：^(<span class="constructor">$$</span>\d&#123;3,4&#125;-)|\d&#123;3.4&#125;-)?\d&#123;7,8&#125;<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">国内电话号码(0511-4405222、021-87888822)：\d&#123;3&#125;-\d&#123;8&#125;|\d&#123;4&#125;-\d&#123;7&#125;</span></span><br><span class="line"><span class="pattern-match">身份证号(15位、18位数字)：^\d&#123;15&#125;|\d&#123;18&#125;<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">短身份证号码(数字、字母x结尾)：^([0-9])&#123;7,18&#125;(x|<span class="constructor">X</span>)?<span class="constructor">$</span> 或 ^\d&#123;8,18&#125;|[0-9x]&#123;8,18&#125;|[0-9<span class="constructor">X</span>]&#123;8,18&#125;?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：^[a-z<span class="constructor">A</span>-<span class="constructor">Z</span>][a-z<span class="constructor">A</span>-<span class="constructor">Z0</span>-9<span class="constructor">_</span>]&#123;4,15&#125;<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">密码(以字母开头，长度在6~18之间，只能包含字母、数字和下划线)：^[a-z<span class="constructor">A</span>-<span class="constructor">Z</span>]\w&#123;5,17&#125;<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">强密码(必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间)：^(?=.<span class="operator">*</span>\d)(?=.<span class="operator">*</span>[a-z])(?=.<span class="operator">*</span>[<span class="constructor">A</span>-<span class="constructor">Z</span>]).&#123;8,10&#125;<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">日期格式：^\d&#123;4&#125;-\d&#123;1,2&#125;-\d&#123;1,2&#125;</span></span><br><span class="line"><span class="pattern-match">一年的12个月(01～09和1～12)：^(0?[1-9]|1[0-2])<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">一个月的31天(01～09和1～31)：^((0?[1-9])|((1|2)[0-9])|30|31)<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">钱的输入格式：</span></span><br><span class="line"><span class="pattern-match">有四种钱的表示形式我们可以接受:”10000.00″ 和 “10,000.00″, 和没有 “分” 的 “10000″ 和 “10,000″：^[1-9][0-9]<span class="operator">*</span><span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">这表示任意一个不以0开头的数字，但是，这也意味着一个字符”0″不通过，所以我们采用下面的形式：^(0|[1-9][0-9]<span class="operator">*</span>)<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">一个0或者一个不以0开头的数字.我们还可以允许开头有一个负号：^(0|-?[1-9][0-9]<span class="operator">*</span>)<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">这表示一个0或者一个可能为负的开头不为0的数字.让用户以0开头好了.把负号的也去掉，因为钱总不能是负的吧.下面我们要加的是说明可能的小数部分：^[0-9]+(.[0-9]+)?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">必须说明的是，小数点后面至少应该有1位数，所以”10.”是不通过的，但是 “10″ 和 “10.2″ 是通过的：^[0-9]+(.[0-9]&#123;2&#125;)?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">这样我们规定小数点后面必须有两位，如果你认为太苛刻了，可以这样：^[0-9]+(.[0-9]&#123;1,2&#125;)?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">这样就允许用户只写一位小数。下面我们该考虑数字中的逗号了，我们可以这样：^[0-9]&#123;1,3&#125;(,[0-9]&#123;3&#125;)<span class="operator">*</span>(.[0-9]&#123;1,2&#125;)?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">1到3个数字，后面跟着任意个 逗号+3个数字，逗号成为可选，而不是必须：^([0-9]+|[0-9]&#123;1,3&#125;(,[0-9]&#123;3&#125;)<span class="operator">*</span>)(.[0-9]&#123;1,2&#125;)?<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">备注：这就是最终结果了，别忘了”+”可以用”<span class="operator">*</span>”替代。如果你觉得空字符串也可以接受的话(奇怪，为什么?)最后，别忘了在用函数时去掉去掉那个反斜杠，一般的错误都在这里</span></span><br><span class="line"><span class="pattern-match">xml文件：^([a-z<span class="constructor">A</span>-<span class="constructor">Z</span>]+-?)+[a-z<span class="constructor">A</span>-<span class="constructor">Z0</span>-9]+\\.[x|<span class="constructor">X</span>][m|<span class="constructor">M</span>][l|<span class="constructor">L</span>]<span class="constructor">$</span></span></span><br><span class="line"><span class="pattern-match">中文字符的正则表达式：[\u4e00-\u9fa5]</span></span><br><span class="line"><span class="pattern-match">双字节字符：[^\x00-\xff] (包括汉字在内，可以用来计算字符串的长度(一个双字节字符长度计2，<span class="constructor">ASCII</span>字符计1))</span></span><br><span class="line"><span class="pattern-match">空白行的正则表达式：\n\s<span class="operator">*</span>\r (可以用来删除空白行)</span></span><br><span class="line"><span class="pattern-match"><span class="constructor">HTML</span>标记的正则表达式：&lt;(\<span class="constructor">S</span><span class="operator">*</span>?)[^&gt;]<span class="operator">*</span>&gt;.<span class="operator">*</span>?&lt;<span class="operator">/</span>\1&gt;|&lt;.<span class="operator">*</span>? <span class="operator">/</span>&gt; (网上流传的版本太糟糕，上面这个也仅仅能部分，对于复杂的嵌套标记依旧无能为力)</span></span><br><span class="line"><span class="pattern-match">首尾空白字符的正则表达式：^\s<span class="operator">*</span>|\s<span class="operator">*</span><span class="constructor">$</span>或(^\s<span class="operator">*</span>)|(\s<span class="operator">*</span><span class="constructor">$</span>) (可以用来删除行首行尾的空白字符(包括空格、制表符、换页符等等)，非常有用的表达式)</span></span><br><span class="line"><span class="pattern-match">腾讯<span class="constructor">QQ</span>号：[1-9][0-9]&#123;4,&#125; (腾讯<span class="constructor">QQ</span>号从10000开始)</span></span><br><span class="line"><span class="pattern-match">中国邮政编码：[1-9]\d&#123;5&#125;(?!\d) (中国邮政编码为6位数字)</span></span><br><span class="line"><span class="pattern-match"><span class="constructor">IP</span>地址：\d+\.\d+\.\d+\.\d+ (提取<span class="constructor">IP</span>地址时有用)</span></span><br><span class="line"><span class="pattern-match"><span class="constructor">IP</span>地址：((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.)&#123;3&#125;(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)) (由@飞龙三少 提供，感谢共享)</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>常用</category>
+      </categories>
+      <tags>
+        <tag>正则表达式</tag>
+      </tags>
+  </entry>
+</search>
